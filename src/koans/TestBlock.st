@@ -7,8 +7,8 @@ Koan subclass: TestBlock [
     block := [].
     anotherBlock := BlockClosure new.
 
-    self expect: fillMeIn toEqual: block class.
-    self expect: fillMeIn toEqual: anotherBlock class.
+    self expect: BlockClosure toEqual: block class.
+    self expect: BlockClosure toEqual: anotherBlock class.
   ]
 
   testSendingValueMessageExecutesBlocks [
@@ -16,12 +16,12 @@ Koan subclass: TestBlock [
 
     block := [ 'Smalltalk' ].
 
-    self expect: fillMeIn toEqual: block value.
+    self expect: 'Smalltalk' toEqual: block value.
 
     anotherBlock := [ string := 'Virtual Machine' ].
     anotherBlock value.
 
-    self expect: fillMeIn toEqual: string.
+    self expect: 'Virtual Machine' toEqual: string.
   ]
 
   testBlocksReturnAnyKindOfValue [
@@ -31,9 +31,9 @@ Koan subclass: TestBlock [
     anotherBlock := [ #smalltalk ].
     andAnotherBlock := [ true ].
 
-    self expect: fillMeIn toEqual: block value.
-    self expect: fillMeIn toEqual: anotherBlock value.
-    self expect: fillMeIn toEqual: andAnotherBlock value.
+    self expect: 10 toEqual: block value.
+    self expect: #smalltalk toEqual: anotherBlock value.
+    self expect: true toEqual: andAnotherBlock value.
   ]
 
   testPassingArgumentsToBlocks [
@@ -41,7 +41,7 @@ Koan subclass: TestBlock [
 
     block := [ :argOne :argTwo | argOne, ' and ', argTwo ].
 
-    self expect: fillMeIn toEqual: (block value: 'Alan' value: 'Dan').
+    self expect: 'Alan and Dan' toEqual: (block value: 'Alan' value: 'Dan').
   ]
 
   testBlockArgumentLimit [
@@ -49,7 +49,7 @@ Koan subclass: TestBlock [
 
     block := [ :x :y :z | x + y * z ].
 
-    self expect: fillMeIn toEqual: (block value: 10 value: 2 value: 3).
+    self expect: 36 toEqual: (block value: 10 value: 2 value: 3).
     "Blocks accept between zero up to 3 separate arguments."
   ]
 
@@ -58,7 +58,7 @@ Koan subclass: TestBlock [
 
     block := [ :a :b :c :d :e | a + b + c + d + e ].
 
-    self expect: fillMeIn toEqual: (block valueWithArguments: #(2 4 6 8 10)).
+    self expect: 30 toEqual: (block valueWithArguments: #(2 4 6 8 10)).
   ]
 
   testPassingMoreArgumentsThanExpected [
@@ -66,7 +66,7 @@ Koan subclass: TestBlock [
 
     block := [ :x | x ].
 
-    self expect: [ block value: 1 value: 2 ] toRaise: fillMeIn.
+    self expect: [ block value: 1 value: 2 ] toRaise: SystemExceptions.WrongArgumentCount.
   ]
 
   testIterateUsingInterval [
@@ -75,12 +75,12 @@ Koan subclass: TestBlock [
     counter := 0.
     1 to: 5 do: [ :n | counter := counter + n ].
 
-    self expect: fillMeIn toEqual: counter.
+    self expect: 15 toEqual: counter.
 
     counter := 0.
     1 to: 10 by: 2 do: [ :n | counter := counter + n ].
 
-    self expect: fillMeIn toEqual: counter.
+    self expect: 25 toEqual: counter.
   ]
 
   testClosure [
@@ -89,7 +89,7 @@ Koan subclass: TestBlock [
     value := 10.
     block := [ :number | number + value ].
 
-    self expect: fillMeIn toEqual: (block value: 20).
+    self expect: 30 toEqual: (block value: 20).
   ]
 
   testRealClosure [
@@ -105,9 +105,9 @@ Koan subclass: TestBlock [
       variable.
     ].
 
-    self expect: fillMeIn toEqual: block value.
-    self expect: fillMeIn toEqual: block value.
-    self expect: fillMeIn toEqual: block value.
+    self expect: 1 toEqual: block value.
+    self expect: 2 toEqual: block value.
+    self expect: 3 toEqual: block value.
   ]
 
   testCull [
@@ -115,11 +115,11 @@ Koan subclass: TestBlock [
 
     block := [].
 
-    self expect: fillMeIn toEqual: (block cull: 1).
-    self expect: [ block value: 1 ] toRaise: fillMeIn.
+    self expect: nil toEqual: (block cull: 1).
+    self expect: [ block value: 1 ] toRaise: SystemExceptions.WrongArgumentCount.
   ]
 
   testEachBlockIsAUniqueObject [
-    self expect: fillMeIn toEqual: ([] hash = [] hash).
+    self expect: false toEqual: ([] hash = [] hash).
   ]
 ]
