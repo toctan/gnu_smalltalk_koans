@@ -7,8 +7,8 @@ Koan subclass: TestCharacter [
     character := $A.
     anotherCharacter := $B.
 
-    self expect: fillMeIn toEqual: (character < anotherCharacter).
-    self expect: fillMeIn toEqual: (character max: anotherCharacter).
+    self expect: true toEqual: (character < anotherCharacter).
+    self expect: $B toEqual: (character max: anotherCharacter).
   ]
 
   testCharacterAsciiValue [
@@ -18,9 +18,9 @@ Koan subclass: TestCharacter [
     anotherCharacter := $1.
     andAnotherCharacter := $$.
 
-    self expect: fillMeIn toEqual: character asciiValue.
-    self expect: fillMeIn toEqual: anotherCharacter asciiValue.
-    self expect: fillMeIn toEqual: andAnotherCharacter asciiValue.
+    self expect: 115 toEqual: character asciiValue.
+    self expect: 49 toEqual: anotherCharacter asciiValue.
+    self expect: 36 toEqual: andAnotherCharacter asciiValue.
   ]
 
   testUnprintableCharacters [
@@ -31,9 +31,9 @@ Koan subclass: TestCharacter [
     character := Character tab.
     anotherCharacter := Character backspace.
 
-    self expect: fillMeIn toEqual: (character = (Character value: 9)).
+    self expect: true toEqual: (character = (Character value: 9)).
     "Imma let you finish, but 'Unprintable' characters can actually be printed."
-    self expect: fillMeIn toEqual: (anotherCharacter = ($<8>)).
+    self expect: true toEqual: (anotherCharacter = ($<8>)).
   ]
 
   testDigitAndLetter [
@@ -42,9 +42,9 @@ Koan subclass: TestCharacter [
     character := $A.
     anotherCharacter := $9.
 
-    self expect: fillMeIn toEqual: character isLetter.
-    self expect: fillMeIn toEqual: anotherCharacter isDigit.
-    self expect: fillMeIn toEqual: character isAlphaNumeric.
+    self expect: true toEqual: character isLetter.
+    self expect: true toEqual: anotherCharacter isDigit.
+    self expect: true toEqual: character isAlphaNumeric.
   ]
 
   testLetterCase [
@@ -53,8 +53,8 @@ Koan subclass: TestCharacter [
     character := $C.
     anotherCharacter := $x.
 
-    self expect: fillMeIn toEqual: character isUppercase.
-    self expect: fillMeIn toEqual: anotherCharacter isLowercase.
+    self expect: true toEqual: character isUppercase.
+    self expect: true toEqual: anotherCharacter isLowercase.
   ]
 
   testLetterCaseConversion [
@@ -63,8 +63,8 @@ Koan subclass: TestCharacter [
     character := $a.
     anotherCharacter := $X.
 
-    self expect: fillMeIn toEqual: character asUppercase.
-    self expect: fillMeIn toEqual: anotherCharacter asLowercase.
+    self expect: $A toEqual: character asUppercase.
+    self expect: $x toEqual: anotherCharacter asLowercase.
   ]
 
   testWhitespace [
@@ -73,8 +73,8 @@ Koan subclass: TestCharacter [
     character := Character space.
     anotherCharacter := Character tab.
 
-    self expect: fillMeIn toEqual: character isSeparator.
-    self expect: fillMeIn toEqual: anotherCharacter isSeparator.
+    self expect: true toEqual: character isSeparator.
+    self expect: true toEqual: anotherCharacter isSeparator.
   ]
 
   testPunctuation [
@@ -84,9 +84,9 @@ Koan subclass: TestCharacter [
     anotherCharacter := $?.
     andAnotherCharacter := $#.
 
-    self expect: fillMeIn toEqual: character isPunctuation.
-    self expect: fillMeIn toEqual: anotherCharacter isPunctuation.
-    self expect: fillMeIn toEqual: andAnotherCharacter isPunctuation.
+    self expect: false toEqual: character isPunctuation.
+    self expect: true toEqual: anotherCharacter isPunctuation.
+    self expect: false toEqual: andAnotherCharacter isPunctuation.
   ]
 
   testRepeatingCharacters [
@@ -94,7 +94,7 @@ Koan subclass: TestCharacter [
 
     character := $J.
 
-    self expect: fillMeIn toEqual: (character * 5).
+    self expect: 'JJJJJ' toEqual: (character * 5).
   ]
 
   testIdenticalCharactersAreASingleInternalObject [
@@ -103,6 +103,6 @@ Koan subclass: TestCharacter [
     character := $K.
     anotherCharacter := $K.
 
-    self expect: fillMeIn toEqual: (character hash = anotherCharacter hash).
+    self expect: true toEqual: (character hash = anotherCharacter hash).
   ]
 ]
