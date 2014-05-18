@@ -6,18 +6,18 @@ Koan subclass: TestAssociation [
 
     association := #a -> 0.
 
-    self expect: fillMeIn toEqual: association key.
-    self expect: fillMeIn toEqual: association value.
+    self expect: #a toEqual: association key.
+    self expect: 0 toEqual: association value.
 
     anotherAssociation := Association new key: #b value: 1.
 
-    self expect: fillMeIn toEqual: anotherAssociation key.
-    self expect: fillMeIn toEqual: anotherAssociation value.
+    self expect: #b toEqual: anotherAssociation key.
+    self expect: 1 toEqual: anotherAssociation value.
 
     andAnotherAssociation := Association key: #c value: 2.
 
-    self expect: fillMeIn toEqual: andAnotherAssociation key.
-    self expect: fillMeIn toEqual: andAnotherAssociation value.
+    self expect: #c toEqual: andAnotherAssociation key.
+    self expect: 2 toEqual: andAnotherAssociation value.
   ]
 
   testAssociationKeysCanBeAnyObject [
@@ -25,29 +25,29 @@ Koan subclass: TestAssociation [
 
     association := 'a' -> 0.
 
-    self expect: fillMeIn toEqual: association key.
+    self expect: 'a' toEqual: association key.
 
     association := 0 -> 1.
 
-    self expect: fillMeIn toEqual: association key.
+    self expect: 0 toEqual: association key.
 
     association := true -> 2.
 
-    self expect: fillMeIn toEqual: association key.
+    self expect: true toEqual: association key.
 
     association := nil -> 3.
 
-    self expect: fillMeIn toEqual: association key.
+    self expect: nil toEqual: association key.
 
     association := $b -> 4.
 
-    self expect: fillMeIn toEqual: association key.
+    self expect: $b toEqual: association key.
 
     obj := Object new.
 
     association := obj -> 5.
 
-    self expect: fillMeIn toEqual: association key.
+    self expect: obj toEqual: association key.
   ]
 
   testComparingAssociations [
@@ -55,12 +55,12 @@ Koan subclass: TestAssociation [
 
     association := Association key: #a value: 0.
 
-    self expect: fillMeIn toEqual: (association = (#a -> 0)).
+    self expect: true toEqual: (association = (#a -> 0)).
 
     anotherAssociation := Association key: #b value: 1.
 
-    self expect: fillMeIn toEqual: (association = (#b -> 2)).
-    self expect: fillMeIn toEqual: (association = (#c -> 1)).
+    self expect: false toEqual: (association = (#b -> 2)).
+    self expect: false toEqual: (association = (#c -> 1)).
   ]
 
   testAssociationsActLikeSingletons [
@@ -69,6 +69,6 @@ Koan subclass: TestAssociation [
     association := Association new key: #a value: 0.
     anotherAssociation := #a -> 0.
 
-    self expect: fillMeIn toEqual: (association = anotherAssociation).
+    self expect: true toEqual: (association = anotherAssociation).
   ]
 ]
