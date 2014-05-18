@@ -6,7 +6,7 @@ Koan subclass: TestSymbol [
 
     symbol := #smalltalk.
 
-    self expect: fillMeIn toEqual: (symbol isMemberOf: Symbol).
+    self expect: true toEqual: (symbol isMemberOf: Symbol).
   ]
 
   testSymbolsInheritFromString [
@@ -14,7 +14,7 @@ Koan subclass: TestSymbol [
 
     symbol := #smalltalk.
 
-    self expect: fillMeIn toEqual: symbol class superclass.
+    self expect: String toEqual: symbol class superclass.
   ]
 
   testSymbolsCanBeCompared [
@@ -24,8 +24,8 @@ Koan subclass: TestSymbol [
     anotherSymbol := #ruby.
     andAnotherSymbol := #smalltalk.
 
-    self expect: fillMeIn toEqual: (symbol = anotherSymbol).
-    self expect: fillMeIn toEqual: (symbol = andAnotherSymbol).
+    self expect: false toEqual: (symbol = anotherSymbol).
+    self expect: true toEqual: (symbol = andAnotherSymbol).
   ]
 
   testIdenticalSymbolsAreASingleInternalObject [
@@ -34,7 +34,7 @@ Koan subclass: TestSymbol [
     symbol := #smalltalk.
     anotherSymbol := #smalltalk.
 
-    self expect: fillMeIn toEqual: (symbol hash = anotherSymbol hash).
+    self expect: true toEqual: (symbol hash = anotherSymbol hash).
   ]
 
   testMethodNamesBecomeSymbols [
@@ -42,7 +42,7 @@ Koan subclass: TestSymbol [
 
     allSymbols := Symbol allInstances.
 
-    self expect: fillMeIn toEqual: (allSymbols includes: #testMethodNamesBecomeSymbols).
+    self expect: true toEqual: (allSymbols includes: #testMethodNamesBecomeSymbols).
     "Why do you think we store all instances of Symbol before evaluating if it is included in allSymbols?"
   ]
 
@@ -51,7 +51,7 @@ Koan subclass: TestSymbol [
 
     string := 'smalltalk'.
 
-    self expect: fillMeIn toEqual: string asSymbol.
+    self expect: #smalltalk toEqual: string asSymbol.
   ]
 
   testSymbolConversionWhenStringContainsNonAlphaNumerics [
@@ -59,7 +59,7 @@ Koan subclass: TestSymbol [
 
     string := 'hello world!'.
 
-    self expect: fillMeIn toEqual: string asSymbol.
+    self expect: #'hello world!' toEqual: string asSymbol.
   ]
 
   testSymbolsHaveStringMethodsThroughInheritance [
@@ -69,9 +69,9 @@ Koan subclass: TestSymbol [
 
     symbol := #smalltalk.
 
-    self expect: fillMeIn toEqual: symbol reverse.
-    self expect: fillMeIn toEqual: (symbol, ' is fun!').
-    self expect: fillMeIn toEqual: symbol size.
-    self expect: fillMeIn toEqual: (symbol at: 1).
+    self expect: 'klatllams' toEqual: symbol reverse.
+    self expect: 'smalltalk is fun!' toEqual: (symbol, ' is fun!').
+    self expect: 9 toEqual: symbol size.
+    self expect: $s toEqual: (symbol at: 1).
   ]
 ]
