@@ -6,8 +6,8 @@ Koan subclass: TestDictionary [
 
     dictionary := Dictionary new.
 
-    self expect: fillMeIn toEqual: dictionary isEmpty.
-    self expect: fillMeIn toEqual: dictionary size.
+    self expect: true toEqual: dictionary isEmpty.
+    self expect: 0 toEqual: dictionary size.
   ]
 
   testAddingKeysAndValuesUsingAssociations [
@@ -21,11 +21,11 @@ Koan subclass: TestDictionary [
                     add: nil  -> 5;
                     yourself.
 
-    self expect: fillMeIn toEqual: (dictionary at: #a).
-    self expect: fillMeIn toEqual: (dictionary at: 'b').
-    self expect: fillMeIn toEqual: (dictionary at: 100).
-    self expect: fillMeIn toEqual: (dictionary at: true).
-    self expect: fillMeIn toEqual: (dictionary at: nil).
+    self expect: 1 toEqual: (dictionary at: #a).
+    self expect: 2 toEqual: (dictionary at: 'b').
+    self expect: 3 toEqual: (dictionary at: 100).
+    self expect: 4 toEqual: (dictionary at: true).
+    self expect: 5 toEqual: (dictionary at: nil).
   ]
 
   testAddingAssociationsUsingAtPut [
@@ -36,8 +36,8 @@ Koan subclass: TestDictionary [
                     at: #b put: 2;
                     yourself.
 
-    self expect: fillMeIn toEqual: (dictionary at: #a).
-    self expect: fillMeIn toEqual: (dictionary at: #b).
+    self expect: 1 toEqual: (dictionary at: #a).
+    self expect: 2 toEqual: (dictionary at: #b).
   ]
 
   testReplaceValueAtKey [
@@ -48,7 +48,7 @@ Koan subclass: TestDictionary [
     dictionary at: #a put: 1.
     dictionary at: #a put: 2.
 
-    self expect: fillMeIn toEqual: (dictionary at: #a).
+    self expect: 2 toEqual: (dictionary at: #a).
   ]
 
   testRetrievingCollectionOfKeysAndValues [
@@ -56,17 +56,17 @@ Koan subclass: TestDictionary [
 
     dictionary := Dictionary new.
 
-    self expect: fillMeIn toEqual: dictionary keys.
-    self expect: fillMeIn toEqual: dictionary values.
+    self expect: #() asSet toEqual: dictionary keys.
+    self expect: #() toEqual: dictionary values.
 
     dictionary add: #a -> 1.
     dictionary add: #b -> 2.
     dictionary add: #c -> 3.
 
-    self expect: fillMeIn toEqual: dictionary keys.
-    self expect: fillMeIn toEqual: dictionary values.
-    self expect: fillMeIn toEqual: dictionary keys class.
-    self expect: fillMeIn toEqual: dictionary values class.
+    self expect: #(#a #b #c) asSet toEqual: dictionary keys.
+    self expect: #(1 2 3) toEqual: dictionary values.
+    self expect: Set toEqual: dictionary keys class.
+    self expect: Array toEqual: dictionary values class.
 
     "Why do you think the classes are different?"
   ]
@@ -81,14 +81,14 @@ Koan subclass: TestDictionary [
 
     value := dictionary removeKey: #a.
 
-    self expect: fillMeIn toEqual: value.
-    self expect: fillMeIn toEqual: dictionary keys.
+    self expect: 1 toEqual: value.
+    self expect: #(#b) asSet toEqual: dictionary keys.
 
-    self expect: [ dictionary removeKey: #c ] toRaise: fillMeIn.
+    self expect: [ dictionary removeKey: #c ] toRaise: SystemExceptions.NotFound.
 
     value := dictionary removeKey: #c ifAbsent: [0].
 
-    self expect: fillMeIn toEqual: value.
+    self expect: 0 toEqual: value.
   ]
 
   testIncludesKey [
@@ -99,9 +99,9 @@ Koan subclass: TestDictionary [
                     add: #duck -> 55;
                     yourself.
 
-    self expect: fillMeIn toEqual: (dictionary includesKey: #daft).
-    self expect: fillMeIn toEqual: (dictionary includesKey: #monk).
-    self expect: fillMeIn toEqual: (dictionary includesKey: 'daft').
+    self expect: true toEqual: (dictionary includesKey: #daft).
+    self expect: false toEqual: (dictionary includesKey: #monk).
+    self expect: false toEqual: (dictionary includesKey: 'daft').
   ]
 
   testIteratingKeys [
@@ -118,7 +118,7 @@ Koan subclass: TestDictionary [
       set add: key.
     ].
 
-    self expect: fillMeIn toEqual: set.
+    self expect: dictionary keys toEqual: set.
   ]
 
   testIteratingAssociations [
@@ -138,7 +138,7 @@ Koan subclass: TestDictionary [
     ].
     array sort.
 
-    self expect: fillMeIn toEqual: array.
+    self expect: {#a->1. #b->2. #c->3}  toEqual: array.
     "Be careful how you craft the array."
   ]
 
@@ -156,11 +156,11 @@ Koan subclass: TestDictionary [
       set add: (key -> value).
     ].
 
-    self expect: fillMeIn toEqual: set.
+    self expect: {#a->1. #b->2. #c->3}  asSet toEqual: set.
   ]
 
   testSmalltalkDictionary [
-    self expect: fillMeIn toEqual: Smalltalk class.
-    self expect: fillMeIn toEqual: (Smalltalk isKindOf: Dictionary).
+    self expect: SystemDictionary toEqual: Smalltalk class.
+    self expect: true toEqual: (Smalltalk isKindOf: Dictionary).
   ]
 ]
