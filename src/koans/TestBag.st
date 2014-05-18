@@ -9,9 +9,9 @@ Koan subclass: TestBag [
     bag add: 'b' withOccurrences: 1.
     bag add: 'c'.
 
-    self expect: fillMeIn toEqual: (bag occurrencesOf: 'a').
-    self expect: fillMeIn toEqual: (bag occurrencesOf: 'b').
-    self expect: fillMeIn toEqual: (bag occurrencesOf: 'c').
+    self expect: 2 toEqual: (bag occurrencesOf: 'a').
+    self expect: 1 toEqual: (bag occurrencesOf: 'b').
+    self expect: 1 toEqual: (bag occurrencesOf: 'c').
   ]
 
   testCollectionIsNotIndexable [
@@ -21,7 +21,7 @@ Koan subclass: TestBag [
     bag add: 1 withOccurrences: 3.
     bag add: 2.
 
-    self expect: [ bag at: 1 ] toRaise: fillMeIn.
+    self expect: [ bag at: 1 ] toRaise: SystemExceptions.NotIndexable.
   ]
 
   testComparingBags [
@@ -35,6 +35,6 @@ Koan subclass: TestBag [
     anotherBag add: 2 withOccurrences: 3.
     anotherBag add: 1 withOccurrences: 4.
 
-    self expect: fillMeIn toEqual: (bag = anotherBag).
+    self expect: true toEqual: (bag = anotherBag).
   ]
 ]
